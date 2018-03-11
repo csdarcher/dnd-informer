@@ -11,7 +11,7 @@
                   <label :for="result.name">{{result.name}}</label>
                 </div> 
                  <button type="submit">Compare</button> 
-            <load-spinner v-if="showLoading"></load-spinner>
+            <!-- <load-spinner v-if="showLoading"></load-spinner> -->
                 <ul class="races" v-if="results && results.length > 0 ">
                     <li v-for="(item,index) in results" :key="index" class="item">
                       <p><strong>{{ checkedRaces.name }}</strong></p>
