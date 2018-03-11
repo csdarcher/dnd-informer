@@ -6,7 +6,7 @@
       <div class="form-container"> 
         <h2> Select 2 races below to compare.</h2>
               <form v-on:submit.prevent="compareRaces">
-                <div class="races" v-for="(result,index) in results" :key="index">
+                <div class="checkedRaces" v-for="(result,index) in results" :key="index">
                   <input type="checkbox" :id="result.name" :value="result.url" v-model="checkedRaces">
                   <label :for="result.name">{{result.name}}</label>
                 </div> 
@@ -25,7 +25,7 @@
 
 <script>
 import axios from "axios";
-import DoubleBounce from "@/components/DoubleBounce"
+// import DoubleBounce from "@/components/DoubleBounce"
 
 export default {
   name: "RaceSelector",
