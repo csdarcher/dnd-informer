@@ -13,36 +13,26 @@
                  <button type="submit">Compare</button> 
             <load-spinner v-if="showLoading"></load-spinner>
                 <ul class="races" v-if="results && results.length > 0 ">
-                    <li v-for="item in results" class="item">
+                    <li v-for="(item,index) in results" :key="index" class="item">
                       <p><strong>{{ checkedRaces.name }}</strong></p>
                       <p>{{ checkedRaces.alignment }}</p>
                     </li>
                 </ul> 
             </form>  
-              <!-- <ul class="cities" v-if="results && results.list.length > 0">
-                <li v-for="city in results.list">
-                  <h2>{{ city.name }}, {{ city.sys.country }}</h2> -->
-                <!-- </ul> -->
         </div>
   </div>      
 </template>
 
 <script>
 import axios from "axios";
-// import DoubleBounce from "@/components/DoubleBounce"
+import DoubleBounce from "@/components/DoubleBounce"
+
 export default {
   name: "RaceSelector",
-  // components: {
-  //   'load-spinner': DoubleBounce
-  // },
-  data() {
-    return {
-      results: null,
-      showLoading: false,
-      checkedRaces: [],
-      errors: []
-    };
+  components: {
+    'load-spinner': DoubleBounce
   },
+
   data() {
     return {
       results: null,
@@ -57,28 +47,35 @@ export default {
       .get("http://www.dnd5eapi.co/api/races")
       .then(response => {
         // this.showSpinner = false;
-        self.results = response.data.results;
+        self.results = results.data;
       })
       .catch(e => {
         // this.showSpinner = false;
         this.errors.push(e);
       });
   },
+  
   methods: {
     compareRaces: function() {
-      this.results = {};
-    }
-  }
-};
+          axios
+            .get('http://www.dnd5eapi.co/api/races/name', {
+            })
+            .then( response => {
+              this.results = response.data;
+            })
+            .catch( error => {
+              this.errors.push(error);
+            }) 
+     }
+   } 
+}
+
 
 // TO DO: Add error message for when user fails to choose a race or chooses more than 2 races.
 </script>
 
 <!-- Added "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-body {
-  background: #e6e6db;
-}
 h1,
 h2 {
   font-weight: normal;
