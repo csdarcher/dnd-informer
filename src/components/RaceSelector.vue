@@ -5,7 +5,7 @@
     </div>
       <div class="form-container"> 
         <h2> Select 2 races below to compare.</h2>
-              <form v-on:submit.prevent="compareRaces">
+              <form v-on:submit.prevent="compareRaces"> 
                 <div class="races" v-for="(result,index) in results" :key="index">
                   <input type="checkbox" :id="result.name" :value="result.url" v-model="checkedRaces">
                   <label :for="result.name">{{result.name}}</label>
@@ -19,7 +19,7 @@
                               <div <a href="http://dnd5eapi.co/api/races" + "race.name" + "race.alignment"</a></div>
                           </li><br/> -->
                            <ul id="race-container">
-                              <li class="races" v-for="(result, index) in results" :key="index" >
+                              <li class="races" v-for="(result, index) in checkedRaces" :key="index" >
                                 <p><strong>{{result.name}}</strong></p>
                                 <p><strong>{{result.url}}</strong></p>
                               </li>
@@ -42,9 +42,12 @@ export default {
       results: null,
       showLoading: false,
       checkedRaces: [],
+      // resultsArray: [],
       errors: []
     };
   },
+
+  // Pull information from API for checkbox labels
   created() {
     let self = this;
     axios
@@ -58,14 +61,19 @@ export default {
         this.errors.push(e);
       });
   },
+
+  // // Pull information from API for actual race comparison
    methods: {
     compareRaces: function() {
           axios
-            .get('http://www.dnd5eapi.co/api/races/index', {
+            .get('http://www.dnd5eapi.co/api/races/', {
             })
-            .then( response => {
-              self.results = response.data.results;
-            })
+
+                  // var resultsArray = checkedRaces;
+
+             .then( response => {
+             self.results = checkedRaces.results;
+             })
             .catch( error => {
              this.errors.push(e);
             }) 
