@@ -31,10 +31,10 @@
 
 <script>
 import axios from "axios";
-// import DoubleBounce from "@/components/DoubleBounce"
+// TO DO import DoubleBounce from "@/components/DoubleBounce"
 export default {
   name: "RaceSelector",
-  // components: {
+  // TO DO components: {
   //   'load-spinner': DoubleBounce
   // },
   data() {
@@ -50,11 +50,11 @@ export default {
     axios
       .get("http://www.dnd5eapi.co/api/races")
       .then(response => {
-        // this.showSpinner = false;
+        //  TO DO this.showSpinner = false;
         self.results = response.data.results;
       })
       .catch(e => {
-        // this.showSpinner = false;
+        // TO DO this.showSpinner = false;
         this.errors.push(e);
       });
   },
