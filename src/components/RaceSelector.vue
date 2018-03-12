@@ -6,19 +6,26 @@
       <div class="form-container"> 
         <h2> Select 2 races below to compare.</h2>
               <form v-on:submit.prevent="compareRaces">
-                <div class="checkedRaces" v-for="(result,index) in results" :key="index">
+                <div class="races" v-for="(result,index) in results" :key="index">
                   <input type="checkbox" :id="result.name" :value="result.url" v-model="checkedRaces">
                   <label :for="result.name">{{result.name}}</label>
-                </div> 
+                </div>
+              </form>  
                  <button type="submit">Compare</button> 
-            <!-- <load-spinner v-if="showLoading"></load-spinner> -->
-                <ul class="races" v-if="results && results.length > 0 ">
-                    <li v-for="(item,index) in results" :key="index" class="item">
-                      <p><strong>{{ checkedRaces.name }}</strong></p>
-                      <p>{{ checkedRaces.alignment }}</p>
-                    </li>
-                </ul> 
-            </form>  
+            <load-spinner v-if="showLoading"></load-spinner>
+                  <div class="results-display">
+                        <!-- document.getElementById('name').innerHTML = response.data.map(function (
+                              <li class="row"> +
+                              <div <a href="http://dnd5eapi.co/api/races" + "race.name" + "race.alignment"</a></div>
+                          </li><br/> -->
+                          
+                          <ul v-if="results && results.length > 0 " class="results">
+                          <li v-for="item in results" class="item">
+                            <p><strong>{{ item.word }}</strong></p>
+                            <p>{{ item.score}}</p>
+                          </li>
+                        </ul>
+                    </div>
         </div>
   </div>      
 </template>
@@ -26,13 +33,11 @@
 <script>
 import axios from "axios";
 // import DoubleBounce from "@/components/DoubleBounce"
-
 export default {
   name: "RaceSelector",
-  components: {
-    'load-spinner': DoubleBounce
-  },
-
+  // components: {
+  //   'load-spinner': DoubleBounce
+  // },
   data() {
     return {
       results: null,
@@ -47,35 +52,37 @@ export default {
       .get("http://www.dnd5eapi.co/api/races")
       .then(response => {
         // this.showSpinner = false;
-        self.results = results.data;
+        self.results = response.data.results;
       })
       .catch(e => {
         // this.showSpinner = false;
         this.errors.push(e);
       });
   },
-  
-  methods: {
+   methods: {
     compareRaces: function() {
           axios
-            .get('http://www.dnd5eapi.co/api/races/name', {
+            .get('http://www.dnd5eapi.co/api/races', {
             })
             .then( response => {
-              this.results = response.data;
+              this.results = response.data.results;
             })
             .catch( error => {
-              this.errors.push(error);
+             this.errors.push(error);
             }) 
      }
-   } 
+    
+   }, 
 }
-
 
 // TO DO: Add error message for when user fails to choose a race or chooses more than 2 races.
 </script>
 
 <!-- Added "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+body {
+  background: #e6e6db;
+}
 h1,
 h2 {
   font-weight: normal;
