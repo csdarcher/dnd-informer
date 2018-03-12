@@ -18,12 +18,11 @@
                               <li class="row"> +
                               <div <a href="http://dnd5eapi.co/api/races" + "race.name" + "race.alignment"</a></div>
                           </li><br/> -->
-                          
-                          <ul v-if="results && results.length > 0 " class="results">
-                          <li v-for="item in results" class="item">
-                            <p><strong>{{ item.word }}</strong></p>
-                            <p>{{ item.score}}</p>
-                          </li>
+                           <ul id="race-container">
+                              <li class="races" v-for="(result, index) in results" :key="index" >
+                                <p><strong>{{result.name}}</strong></p>
+                                <p><strong>{{result.url}}</strong></p>
+                              </li>
                         </ul>
                     </div>
         </div>
@@ -62,13 +61,13 @@ export default {
    methods: {
     compareRaces: function() {
           axios
-            .get('http://www.dnd5eapi.co/api/races', {
+            .get('http://www.dnd5eapi.co/api/races/index', {
             })
             .then( response => {
-              this.results = response.data.results;
+              self.results = response.data.results;
             })
             .catch( error => {
-             this.errors.push(error);
+             this.errors.push(e);
             }) 
      }
     
@@ -94,13 +93,21 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
+  background: #7A7362;
+  color: white;
 }
 a {
-  color: #42b983;
+  color: gold;
 }
-.form-container {
-  border: 2px;
-  border-color: #7a7362;
+
+.race-selector {
+  border: 10px;
+  border-color: red;
+}
+
+.races {
+  display: inline-block;
+  padding: 5px;
 }
 button {
   background: #df0404;
