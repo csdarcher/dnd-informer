@@ -8,7 +8,7 @@
               <form v-on:submit.prevent="compareRaces"> 
                 <div class="races" v-for="(result,index) in results" :key="index">
                   <input type="checkbox" :id="result.name" :value="result.url" v-model="checkedRaces">
-                  <label :for="result.name">{{result.name}}</label>
+                  <label :for="result.name">{{ result.name }}</label>
                 </div>
               </form>  
                  <button type="submit">Compare</button> 
@@ -18,11 +18,10 @@
                               <li class="row"> +
                               <div <a href="http://dnd5eapi.co/api/races" + "race.name" + "race.alignment"</a></div>
                           </li><br/> -->
-                           <ul id="race-container">
-                              <li class="races" v-for="(result, index) in checkedRaces" :key="index" >
-                                <p><strong>{{result.name}}</strong></p>
-                                <p><strong>{{result.url}}</strong></p>
-                              </li>
+                           <ul v-if="checkedRaces && checkedRaces.length > 0 " class="race-container">
+                              <li v-for="(item, index) in checkedRaces" class="item" :key="item">
+                                <p><strong>{{ checkedRaces }} </strong></p>
+                              </li>  
                         </ul>
                     </div>
         </div>
@@ -31,12 +30,14 @@
 
 <script>
 import axios from "axios";
-// TO DO import DoubleBounce from "@/components/DoubleBounce"
+import DoubleBounce from "@/components/DoubleBounce"
+
 export default {
   name: "RaceSelector",
-  // TO DO components: {
-  //   'load-spinner': DoubleBounce
-  // },
+  components: {
+    'load-spinner': DoubleBounce
+    },
+
   data() {
     return {
       results: null,
@@ -53,11 +54,11 @@ export default {
     axios
       .get("http://www.dnd5eapi.co/api/races")
       .then(response => {
-        //  TO DO this.showSpinner = false;
+        this.showSpinner = false;
         self.results = response.data.results;
       })
       .catch(e => {
-        // TO DO this.showSpinner = false;
+        this.showSpinner = false;
         this.errors.push(e);
       });
   },
@@ -69,14 +70,12 @@ export default {
             .get('http://www.dnd5eapi.co/api/races/', {
             })
 
-                  // var resultsArray = checkedRaces;
-
-             .then( response => {
-             self.results = checkedRaces.results;
-             })
-            .catch( error => {
-             this.errors.push(e);
-            }) 
+            //  .then( response => {
+            //  resultsArray = checkedRaces.results;
+            //  })
+            // .catch( error => {
+            //  this.errors.push(e);
+            // }) 
      }
     
    }, 
