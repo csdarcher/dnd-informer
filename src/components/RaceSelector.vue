@@ -13,10 +13,37 @@
                 <input type="submit" :disabled="totalSelected <2" value="Compare">
               </form>  
             <load-spinner v-if="showLoading"></load-spinner>
-                  <div class="results-display">
-                      <p> {{ result1 }} </p>
-                      <p> {{ result2 }} </p>
-                    </div>
+                  <div class="results-table">
+                      <!-- <p> {{ result1 }} </p>
+                      <p> {{ result2 }} </p> -->
+                    <table style="width:100%">
+                        <tr>
+                          <th> </th>
+                          <th> {{ result1.name }} </th> 
+                          <th> {{ result2.name }} </th>
+                        </tr>
+                        <tr>
+                          <td>Speed</td>
+                          <td> {{ result1.speed }} </td> 
+                          <td> {{ result2.speed }}</td>
+                        </tr>
+                        <tr>
+                          <td>Alignment</td>
+                          <td>{{ result1.alignment }}</td> 
+                          <td>{{ result2.alignment }}</td>
+                        </tr>
+                        <tr>
+                          <td>Age</td>
+                          <td>{{ result1.age }}</td> 
+                          <td>{{ result2.age }}</td>
+                        </tr>
+                         <tr>
+                          <td>Size</td>
+                          <td>{{ result1.size }}</td> 
+                          <td>{{ result2.size }}</td>
+                        </tr>
+                      </table>
+                  </div> 
         </div>
   </div>      
 </template>
@@ -37,8 +64,8 @@ export default {
       showLoading: false,
       checkedRaces: [],
       errors: [],
-      result1: null,
-      result2: null
+      result1: [],
+      result2: []
     };
   },
 
@@ -127,15 +154,21 @@ li {
 a {
   color: gold;
 }
+.results-table {
+  background: #7a7362;
+  color: #e6e6db;
+  text-align: left;
+}
 
-.race-selector {
-  border: 10px;
-  border-color: red;
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
 .races {
   display: inline-block;
   padding: 5px;
+  margin: 3px;
 }
 button {
   background: #df0404;
