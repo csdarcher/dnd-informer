@@ -7,11 +7,11 @@
         <h2> Select 2 races below to compare.</h2>
               <form v-on:submit.prevent="compareRaces"> 
                 <div class="races" v-for="(result,index) in results" :key="index">
-                  <input type="checkbox" :id="result.name" :value="result.url" v-model="checkedRaces">
+                  <input type="checkbox" :id="result.name" :value="result.url" :disabled="totalSelected ==2" v-model="checkedRaces">
                   <label :for="result.name">{{ result.name }}</label>
                 </div>
+                <input type="submit" :disabled="totalSelected <2" value="Compare">
               </form>  
-                 <button v-on:click="compareRaces">Compare</button> 
             <load-spinner v-if="showLoading"></load-spinner>
                   <div class="results-display">
                       <p> {{ result1 }} </p>
@@ -36,11 +36,16 @@ export default {
       results: null,
       showLoading: false,
       checkedRaces: [],
-      // resultsArray: [],
       errors: [],
       result1: null,
       result2: null
     };
+  },
+
+  computed: {
+    totalSelected: function() {
+      return this.checkedRaces.length;
+    }
   },
 
   // Pull information from API for checkbox labels
@@ -78,13 +83,21 @@ export default {
       //   this.showSpinner = false;
       //   this.errors.push(e);
       // });
-      axios.all([axios.get(url1), axios.get(url2)])
-          .then(axios.spread((choice1response, choice2response) => {
-              this.result1=choice1response.data
-              this.result2=choice2response.data
-              //Do something
-              console.log(choice1response, choice2response)
-          }));
+      axios
+        .all([axios.get(url1), axios.get(url2)])
+        .then(
+          axios.spread((choice1response, choice2response) => {
+            this.result1 = choice1response.data;
+            this.result2 = choice2response.data;
+            this.checkedRaces = [];
+            //Do something
+            console.log(choice1response, choice2response);
+          })
+        )
+
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };
