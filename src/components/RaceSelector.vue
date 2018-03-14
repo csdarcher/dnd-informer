@@ -11,18 +11,11 @@
                   <label :for="result.name">{{ result.name }}</label>
                 </div>
               </form>  
-                 <button type="submit">Compare</button> 
+                 <button v-on:click="compareRaces">Compare</button> 
             <load-spinner v-if="showLoading"></load-spinner>
                   <div class="results-display">
-                        <!-- document.getElementById('name').innerHTML = response.data.map(function (
-                              <li class="row"> +
-                              <div <a href="http://dnd5eapi.co/api/races" + "race.name" + "race.alignment"</a></div>
-                          </li><br/> -->
-                           <ul v-if="checkedRaces && checkedRaces.length > 0 " class="race-container">
-                              <li v-for="(item, index) in checkedRaces" class="item" :key="item">
-                                <p><strong>{{ checkedRaces }} </strong></p>
-                              </li>  
-                        </ul>
+                      <p> {{ result1 }} </p>
+                      <p> {{ result2 }} </p>
                     </div>
         </div>
   </div>      
@@ -30,13 +23,13 @@
 
 <script>
 import axios from "axios";
-import DoubleBounce from "@/components/DoubleBounce"
+import DoubleBounce from "@/components/DoubleBounce";
 
 export default {
   name: "RaceSelector",
   components: {
-    'load-spinner': DoubleBounce
-    },
+    "load-spinner": DoubleBounce
+  },
 
   data() {
     return {
@@ -44,7 +37,9 @@ export default {
       showLoading: false,
       checkedRaces: [],
       // resultsArray: [],
-      errors: []
+      errors: [],
+      result1: null,
+      result2: null
     };
   },
 
@@ -63,23 +58,36 @@ export default {
       });
   },
 
-  // // Pull information from API for actual race comparison
-   methods: {
+  // Pull information from API for actual race comparison
+  methods: {
     compareRaces: function() {
-          axios
-            .get('http://www.dnd5eapi.co/api/races/', {
-            })
+      if (this.checkedRaces.length < 2)
+        this.errors.push("Please choose at least 2 races.");
+      let url1 = this.checkedRaces[0];
+      let url2 = this.checkedRaces[1];
 
-            //  .then( response => {
-            //  resultsArray = checkedRaces.results;
-            //  })
-            // .catch( error => {
-            //  this.errors.push(e);
-            // }) 
-     }
-    
-   }, 
-}
+      console.log(url1, url2);
+
+      // axios
+      // .get(url1)
+      // .then(response => {
+      //   this.showSpinner = false;
+      //   this.result1 = response.data;
+      // })
+      // .catch(e => {
+      //   this.showSpinner = false;
+      //   this.errors.push(e);
+      // });
+      axios.all([axios.get(url1), axios.get(url2)])
+          .then(axios.spread((choice1response, choice2response) => {
+              this.result1=choice1response.data
+              this.result2=choice2response.data
+              //Do something
+              console.log(choice1response, choice2response)
+          }));
+    }
+  }
+};
 
 // TO DO: Add error message for when user fails to choose a race or chooses more than 2 races.
 </script>
@@ -100,7 +108,7 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
-  background: #7A7362;
+  background: #7a7362;
   color: white;
 }
 a {

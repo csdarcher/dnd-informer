@@ -7,6 +7,8 @@
 
 <script>
 import RaceSelector from './components/RaceSelector'
+import DoubleBounce from './components/DoubleBounce'
+
 export default {
   name: 'App',
   components: {
