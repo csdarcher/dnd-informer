@@ -10,15 +10,13 @@
                   <input type="checkbox" :id="result.name" :value="result.url" :disabled="totalSelected ==2" v-model="checkedRaces">
                   <label :for="result.name">{{ result.name }}</label>
                 </div>
-                <input type="submit" :disabled="totalSelected <2" value="Compare">
+                <input class="button" type="submit" :disabled="totalSelected <2" value="Compare">
               </form>  
             <load-spinner v-if="showLoading"></load-spinner>
                   <div class="results-table">
-                      <!-- <p> {{ result1 }} </p>
-                      <p> {{ result2 }} </p> -->
                     <table style="width:100%">
                         <tr>
-                          <th> </th>
+                          <th> Name </th>
                           <th> {{ result1.name }} </th> 
                           <th> {{ result2.name }} </th>
                         </tr>
@@ -170,7 +168,7 @@ table, th, td {
   padding: 5px;
   margin: 3px;
 }
-button {
+.button {
   background: #df0404;
   margin: 10px;
   padding: 0.5rem;
