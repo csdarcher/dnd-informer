@@ -33,7 +33,8 @@ body {
 }
 
 body p {
-  padding: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 h1,
 h2 {

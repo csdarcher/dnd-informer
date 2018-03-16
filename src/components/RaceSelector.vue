@@ -69,8 +69,8 @@ export default {
       showLoading: false,
       checkedRaces: [],
       errors: [],
-      result1: [],
-      result2: []
+      result1: null,
+      result2: null
     };
   },
 
