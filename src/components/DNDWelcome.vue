@@ -5,8 +5,10 @@
       &bull;
       <router-link v-bind:to="{ name: 'RaceSelector' }">Race Informer</router-link>
     </p> 
-    <p>Dungeons & Dragons (abbreviated as D&D or DnD) is a fantasy tabletop role-playing game (RPG) originally designed by Gary Gygax and Dave Arneson. It was first published in 1974 by Tactical Studies Rules, Inc. (TSR). The game has been published by Wizards of the Coast (now a subsidiary of Hasbro) since 1997. It was derived from miniature wargames with a variation of Chainmail serving as the initial rule system. D&D's publication is commonly recognized as the beginning of modern role-playing games and the role-playing game industry.</p>
-    <p>D&D departs from traditional wargaming and assigns each player a specific character to play instead of a military formation. These characters embark upon imaginary adventures within a fantasy setting. A Dungeon Master serves as the game's referee and storyteller while maintaining the setting in which the adventures occur, and playing the role of the inhabitants. The characters form a party that interacts with the setting's inhabitants, and each other. Together they solve dilemmas, engage in battles, and gather treasure and knowledge. In the process the characters earn experience points in order to rise in levels, and become increasingly powerful over a series of sessions.</p>
+    <p>Hello! My name is Carly and I play Dungeons & Dragons, or how it is more commonly referred to, D&D. I started playing a few years ago. I like playing because it allows me to think outside the box and be creative. If you are unfamiliar with D&D I recommend you read this article: <a href="https://en.wikipedia.org/wiki/Dungeons_%26_Dragons" target="_blank">D&D Article</a>. For me, one of the most challenging parts of the game is creating a new character. 
+       When designing or "building" a character you choose a 'race' and a 'class'. I designed this site as a easy way to compare the different characteristics associated with each race. Eventually, I would like to make the site more robust, so you can use it to reference other aspects of character creation like 'classes', 'spells', and 'equipment'. 
+    </p> 
+    <p>Enjoy!</p>
   </div> 
 </template>
 
