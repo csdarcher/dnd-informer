@@ -7,6 +7,7 @@
 
 <script>
 import RaceSelector from './components/RaceSelector'
+import DNDWelcome from './components/DNDWelcome'
 import DoubleBounce from './components/DoubleBounce'
 
 export default {

@@ -3,6 +3,13 @@
     <div class="Title">
         <h1>Dungeons and Dragons 5th Edition Race Informer</h1>
     </div>
+    <div class="adjective-generator">
+    <p> 
+      <router-link v-bind:to="{ name: 'DNDWelcome'}">Welcome</router-link>
+      &bull;
+      <router-link v-bind:to="{ name: 'RaceSelector' }">Race Informer</router-link>
+    </p> 
+    </div> 
       <div class="form-container"> 
         <h2> Select 2 races below to compare.</h2>
               <form v-on:submit.prevent="compareRaces"> 
@@ -150,7 +157,7 @@ li {
   color: white;
 }
 a {
-  color: gold;
+  color: black;
 }
 .results-table {
   background: #7a7362;
