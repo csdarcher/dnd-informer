@@ -20,7 +20,7 @@
                 <input class="button" type="submit" :disabled="totalSelected <2" value="Compare">
               </form>  
             <load-spinner v-if="showLoading"></load-spinner>
-                  <div class="results-table">
+                  <div class="results-table" v-if="result1 && result2">
                     <table style="width:100%">
                         <tr>
                           <th> Name </th>
@@ -122,7 +122,6 @@ export default {
             this.result1 = choice1response.data;
             this.result2 = choice2response.data;
             this.checkedRaces = [];
-            //Do something
             console.log(choice1response, choice2response);
           })
         )
@@ -134,7 +133,6 @@ export default {
   }
 };
 
-// TO DO: Add error message for when user fails to choose a race or chooses more than 2 races.
 </script>
 
 <!-- Added "scoped" attribute to limit CSS to this component only -->

@@ -6,9 +6,9 @@
       <router-link v-bind:to="{ name: 'RaceSelector' }">Race Informer</router-link>
     </p> 
     <p>Hello! My name is Carly and I play Dungeons & Dragons, or how it is more commonly referred to, D&D. I started playing a few years ago. I like playing because it allows me to think outside the box and be creative. If you are unfamiliar with D&D I recommend you read this article: <a href="https://en.wikipedia.org/wiki/Dungeons_%26_Dragons" target="_blank">D&D Article</a>. For me, one of the most challenging parts of the game is creating a new character. 
-       When designing or "building" a character you choose a 'race' and a 'class'. I designed this site as a easy way to compare the different characteristics associated with each race. Eventually, I would like to make the site more robust, so you can use it to reference other aspects of character creation like 'classes', 'spells', and 'equipment'. 
+       When designing or "building" a character you choose a "race" and a "class". I designed this site as a easy way to compare the different characteristics associated with each race. Eventually, I would like to make the site more robust, so you can use it to reference other aspects of character creation like "classes", "spells", and "equipment". 
     </p> 
-    <p>Enjoy!</p>
+    <h2>Enjoy!</h2>
   </div> 
 </template>
 
@@ -30,6 +30,10 @@ export default {
 <style scoped>
 body {
   background: #e6e6db;
+}
+
+body p {
+  padding: 50px;
 }
 h1,
 h2 {
