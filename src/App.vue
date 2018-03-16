@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <img src="./assets/Twenty_sided_dice.png">
-    <RaceSelector/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import RaceSelector from './components/RaceSelector'
 import DNDWelcome from './components/DNDWelcome'
+import RaceSelector from './components/RaceSelector'
 import DoubleBounce from './components/DoubleBounce'
 
 export default {
   name: 'App',
   components: {
-    RaceSelector
+    DNDWelcome
   }
 }
 </script>

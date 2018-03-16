@@ -3,7 +3,7 @@
     <div class="Title">
         <h1>Dungeons and Dragons 5th Edition Race Informer</h1>
     </div>
-    <div class="adjective-generator">
+    <div class="link-container">
     <p> 
       <router-link v-bind:to="{ name: 'DNDWelcome'}">Welcome</router-link>
       &bull;

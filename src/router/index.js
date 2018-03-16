@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import RaceSelector from '@/components/RaceSelector'
 import DNDWelcome from '@/components/DNDWelcome'
+import RaceSelector from '@/components/RaceSelector'
 
 
 Vue.use(Router)
