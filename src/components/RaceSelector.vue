@@ -19,8 +19,9 @@
                 </div>
                 <input class="button" type="submit" :disabled="totalSelected <2" value="Compare">
               </form>  
-            <load-spinner v-if="showLoading"></load-spinner>
                   <div class="results-table" v-if="result1 && result2">
+                    <spinner v-if="showLoading"></spinner>
+                    <!-- <transition-group name="fade" tag="table" appear> -->
                     <table style="width:100%">
                         <tr>
                           <th> Name </th>
@@ -48,6 +49,7 @@
                           <td>{{ result2.size }}</td>
                         </tr>
                       </table>
+                    <!-- </transition-group> -->
                   </div> 
         </div>
   </div>      
@@ -56,11 +58,13 @@
 <script>
 import axios from "axios";
 import DoubleBounce from "@/components/DoubleBounce";
+// Note: vue2-animate is added using the require statement because it is a CSS file
+require('vue2-animate/dist/vue2-animate.min.css');
 
 export default {
   name: "RaceSelector",
   components: {
-    "load-spinner": DoubleBounce
+    "spinner": DoubleBounce
   },
 
   data() {
@@ -86,11 +90,9 @@ export default {
     axios
       .get("http://www.dnd5eapi.co/api/races")
       .then(response => {
-        this.showSpinner = false;
         self.results = response.data.results;
       })
       .catch(e => {
-        this.showSpinner = false;
         this.errors.push(e);
       });
   },
@@ -98,27 +100,18 @@ export default {
   // Pull information from API for actual race comparison
   methods: {
     compareRaces: function() {
+      this.showSpinner = true;
       if (this.checkedRaces.length < 2)
         this.errors.push("Please choose at least 2 races.");
       let url1 = this.checkedRaces[0];
       let url2 = this.checkedRaces[1];
-
       console.log(url1, url2);
-
-      // axios
-      // .get(url1)
-      // .then(response => {
-      //   this.showSpinner = false;
-      //   this.result1 = response.data;
-      // })
-      // .catch(e => {
-      //   this.showSpinner = false;
-      //   this.errors.push(e);
-      // });
+      
       axios
         .all([axios.get(url1), axios.get(url2)])
         .then(
           axios.spread((choice1response, choice2response) => {
+            this.showSpinner = true;
             this.result1 = choice1response.data;
             this.result2 = choice2response.data;
             this.checkedRaces = [];
@@ -127,6 +120,8 @@ export default {
         )
 
         .catch(error => {
+          // turn off spinner
+          this.showSpinner = false;
           console.log(error);
         });
     }
