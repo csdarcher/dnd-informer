@@ -11,6 +11,7 @@
     </p> 
     </div> 
       <div class="form-container"> 
+        <!-- List of races user can choose from -->
         <h2> Select 2 races below to compare.</h2>
               <form v-on:submit.prevent="compareRaces"> 
                 <div class="races" v-for="(result,index) in results" :key="index">
@@ -18,10 +19,11 @@
                   <label :for="result.name">{{ result.name }}</label>
                 </div>
                 <input class="button" type="submit" :disabled="totalSelected <2" value="Compare">
-              </form>  
-                  <div class="results-table" v-if="result1 && result2">
+              </form>
+              <transition-group name="slideDown" tag="div" appear> 
+                <!-- Table of data for chosen races --> 
+                  <div class="results-table" v-if="result1 && result2" v-bind:key="result1.name">
                     <spinner v-if="showLoading"></spinner>
-                    <!-- <transition-group name="fade" tag="table" appear> -->
                     <table style="width:100%">
                         <tr>
                           <th> Name </th>
@@ -49,8 +51,8 @@
                           <td>{{ result2.size }}</td>
                         </tr>
                       </table>
-                    <!-- </transition-group> -->
                   </div> 
+              </transition-group>
         </div>
   </div>      
 </template>
@@ -87,8 +89,7 @@ export default {
   // Pull information from API for checkbox labels
   created() {
     let self = this;
-    axios
-      .get("http://www.dnd5eapi.co/api/races")
+    axios.get("http://www.dnd5eapi.co/api/races")
       .then(response => {
         self.results = response.data.results;
       })
@@ -97,21 +98,21 @@ export default {
       });
   },
 
-  // Pull information from API for actual race comparison
+  // Pull information from API for race comparison
   methods: {
     compareRaces: function() {
-      this.showSpinner = true;
       if (this.checkedRaces.length < 2)
         this.errors.push("Please choose at least 2 races.");
       let url1 = this.checkedRaces[0];
       let url2 = this.checkedRaces[1];
       console.log(url1, url2);
       
-      axios
-        .all([axios.get(url1), axios.get(url2)])
+      // Show spinner when API request begins.
+      this.showSpinner = true;
+      axios.all([axios.get(url1), axios.get(url2)])
         .then(
           axios.spread((choice1response, choice2response) => {
-            this.showSpinner = true;
+            this.showSpinner = false;
             this.result1 = choice1response.data;
             this.result2 = choice2response.data;
             this.checkedRaces = [];
@@ -156,11 +157,12 @@ a {
   background: #7a7362;
   color: #e6e6db;
   text-align: left;
+  border-spacing: 5px;
 }
 
-table, th, td {
+ table, th, td {
     border: 1px solid black;
-    border-collapse: collapse;
+    padding: 10px;
 }
 
 .races {

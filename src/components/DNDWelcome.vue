@@ -53,16 +53,6 @@ li {
 a {
   color: black;
 }
-.results-table {
-  background: #7a7362;
-  color: #e6e6db;
-  text-align: left;
-}
-
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
 
 .races {
   display: inline-block;
